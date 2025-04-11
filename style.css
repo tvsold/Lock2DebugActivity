@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,61 +7,70 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Press Start 2P', monospace;
+    background-color: #000;
+    color: #00ff00;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    line-height: 1.6;
 }
 
 .container {
-    background-color: white;
+    background-color: #111;
     border-radius: 8px;
     padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 500px;
+    box-shadow: 0 0 20px #00ff00;
+    width: 600px;
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 30px;
+h1, h2 {
+    color: #00ff00;
+    margin-bottom: 20px;
 }
 
 .code-segment {
-    background-color: #e8e8e8;
+    background-color: #000;
     padding: 20px;
+    border: 1px solid #00ff00;
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: left;
 }
 
 code {
-    font-family: "Courier New", Courier, monospace;
-    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff00;
+    font-size: 0.9em;
+    white-space: pre-wrap;
 }
 
 button {
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #00ff00;
+    color: #000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    font-family: 'Press Start 2P', monospace;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #00cc00;
 }
 
 .output {
     margin-top: 10px;
     font-weight: bold;
-    color: #4CAF50;
+    color: #00ff00;
 }
 
 .password {
     margin-top: 30px;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    color: #00ff00;
 }
