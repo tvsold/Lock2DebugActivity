@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug the Code</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Debug the Code to Unlock the Lock</h1>
+
+        <!-- Code Segments -->
+        <div id="codeSegment1" class="code-segment">
+            <pre>
+<code>
+def piece_one():
+ num = 50
+    while num < 100:
+        if num % 2 == 0:
+        return num
+    return "Error"
+</code>
+            </pre>
+            <button onclick="debugCode(1)">Fix Code</button>
+            <p class="output" id="output1"></p>
+        </div>
+
+        <div id="codeSegment2" class="code-segment">
+            <pre>
+<code>
+def piece_two():
+    num = 100
+    while num > 90:
+        if num % 3 = 0:
+            return num
+    return "Error"
+</code>
+            </pre>
+            <button onclick="debugCode(2)">Fix Code</button>
+            <p class="output" id="output2"></p>
+        </div>
+
+        <div id="codeSegment3" class="code-segment">
+            <pre>
+<code>
+def piece_three():
+  num = 25
+   while num < 50:
+       if num % 5 == 0:
+           return num
+   return "Error"
+</code>
+            </pre>
+            <button onclick="debugCode(3)">Fix Code</button>
+            <p class="output" id="output3"></p>
+        </div>
+
+        <div id="codeSegment4" class="code-segment">
+            <pre>
+<code>
+def piece_four():
+    num = 10
+    while num < 20:
+       if num % 7 == 0:
+        return num
+    return "Error"
+</code>
+            </pre>
+            <button onclick="debugCode(4)">Fix Code</button>
+            <p class="output" id="output4"></p>
+        </div>
+
+        <div id="finalPassword" class="password">
+            <h2>Your Final Password: <span id="password">____ ____</span></h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
 
