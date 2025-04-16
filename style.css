@@ -1,94 +1,68 @@
-/* Set the base font-family for the body */
+/* Load custom font */
 body {
     font-family: 'Fira Code', monospace;
-    background-color: #121212;
-    color: #f0f0f0;
-    padding: 20px;
+    background-color: #0d0d0d;
+    color: #00ffcc;
+    padding: 30px;
+    line-height: 1.6;
 }
 
-/* Typing header style */
-h3.typing-header {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 2rem;
-    color: #ffcc00;
-    border-right: 4px solid #ffcc00;
-    padding-right: 10px;
-    white-space: nowrap;
+/* Typing effect for h3 */
+h3.typing {
     overflow: hidden;
-    display: inline-block;
-    animation: typing 3s steps(30) 1s forwards, blinkCaret 0.75s step-end infinite;
-}
-
-/* Typing animation for the header */
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-@keyframes blinkCaret {
-    50% {
-        border-color: transparent;
-    }
-}
-
-/* Style for each pass input and button */
-.pass, .pass2, .pass3, .pass4 {
-    display: none;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 1.2rem;
-    border: 1px solid #ffcc00;
-    background-color: #1d1d1d;
-    color: #ffcc00;
-    border-radius: 5px;
-}
-
-.pass:focus, .pass2:focus, .pass3:focus, .pass4:focus {
-    outline: none;
-    border-color: #ffcc00;
-}
-
-/* Style for labels */
-label {
-    font-family: 'Rubik Wet Paint', cursive;
-    font-size: 1.5rem;
-    color: #ffcc00;
-}
-
-/* Style for button */
-button {
-    font-family: 'Mali', sans-serif;
-    font-size: 1rem;
-    color: #f0f0f0;
-    background-color: #ffcc00;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #ff9800;
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Show the pass inputs when unlocked */
-.pass, .pass2, .pass3, .pass4 {
-    display: inline-block;
-}
-
-/* Style for the start paragraph text */
-#start {
-    font-family: 'Gamja Flower', serif;
-    font-size: 1.5rem;
-    color: #f0f0f0;
+    white-space: nowrap;
+    border-right: 2px solid #00ffcc;
+    width: 0;
+    animation: typing 2s steps(30, end), blink 0.75s step-end infinite;
+    font-size: 1.8rem;
     margin-bottom: 20px;
 }
 
+h3.typing.finished {
+    border-right: none;
+}
+
+/* Typing animation keyframes */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Input and button styles */
+input[type="text"] {
+    background-color: #1a1a1a;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    padding: 6px 10px;
+    margin: 10px 5px 10px 0;
+    font-family: 'Fira Code', monospace;
+}
+
+button {
+    background-color: #00ffcc;
+    color: #0d0d0d;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Fira Code', monospace;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #00ccaa;
+}
+
+/* Hide lock inputs initially */
+.pass, .pass2, .pass3, .pass4 {
+    display: none;
+}
+
+/* Reveal the story output area */
+#start {
+    margin-top: 20px;
+    white-space: pre-wrap;
+}
