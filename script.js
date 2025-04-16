@@ -1,11 +1,56 @@
+// Correct code snippets for the locks
 let locks = [
-    'print("Hello World")',
-    "if Kayla == 'Good':",
-    "}",
-    "else:"
+    "('Hello World')", // First lock (corrected)
+    "if (Kayla === 'Good')", // Second lock (corrected)
+    "}", // Third lock (corrected)
+    "else:" // Fourth lock (corrected)
 ];
 
-let passwordChunks = ["26", "07", "59", "69"];
+// Add event listeners for each submit button
+document.getElementById("submit1").addEventListener("click", function () {
+    handleLock(1); // Handles first lock
+});
+
+document.getElementById("submit2").addEventListener("click", function () {
+    handleLock(2); // Handles second lock
+});
+
+document.getElementById("submit3").addEventListener("click", function () {
+    handleLock(3); // Handles third lock
+});
+
+document.getElementById("submit4").addEventListener("click", function () {
+    handleLock(4); // Handles fourth lock
+});
+
+// Function to handle the lock input
+function handleLock(index) {
+    const codeInput = document.getElementById("code" + index).value;
+    const nextPassClass = "pass" + (index + 1);
+
+    if (codeInput === locks[index - 1]) {
+        if (index < locks.length) {
+            const nextPassElements = document.getElementsByClassName(nextPassClass);
+            for (let i = 0; i < nextPassElements.length; i++) {
+                nextPassElements[i].style.display = "inline-block"; // Reveal the next lock input
+            }
+        } else {
+            alert("Congratulations! The code is 26075969.");
+        }
+    } else {
+        alert("Incorrect password for Lock " + index + ".");
+    }
+}
+
+// Select the h3 element
+const h3 = document.querySelector("h3");
+
+// Listen for when the typing animation ends
+h3.addEventListener("animationend", (event) => {
+    if (event.animationName === "typing") {
+        h3.classList.add("finished"); // Add the class to stop the cursor
+    }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const textElement = document.getElementById("start");
@@ -23,65 +68,37 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "MESSAGE FROM THE ARCHIVE:",
         "-------------------------",
-        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
+        "“Those who solve the ancient code step deeper into the maze, where knowledge lights the way.”"
     ];
 
     let lineIndex = 0;
     let charIndex = 0;
 
-    // Hide all lock inputs initially except .pass (Lock 1)
-    for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
-        el.style.display = "none";
-    }
-
-    // Typewriter effect
+    // Function to type each line of the paragraph
     function typeLine() {
         if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
             if (charIndex < currentLine.length) {
                 textElement.innerHTML += currentLine[charIndex];
                 charIndex++;
-                setTimeout(typeLine, 50);
+                setTimeout(typeLine, 50); // Typing speed
             } else {
+                // Add a newline after each line is complete
                 textElement.innerHTML += "<br>";
                 charIndex = 0;
                 lineIndex++;
-                setTimeout(typeLine, 500);
+                setTimeout(typeLine, 500); // Delay before starting the next line
             }
         } else {
-            // Unlock next input fields after typing finishes
-            for (let el of firstLockElements) {
-                el.style.display = "inline-block";
+            // Reveal the first lock input after the typing is complete
+            for (let i = 0; i < firstLockElements.length; i++) {
+                firstLockElements[i].style.display = "inline-block";
             }
         }
     }
 
-    // Start typing the message immediately
-    typeLine();
-
-    // Add lock handlers
-    for (let i = 1; i <= 4; i++) {
-        document.getElementById(`submit${i}`).addEventListener("click", () => {
-            handleLock(i);
-        });
-    }
-
-    function handleLock(index) {
-        const input = document.getElementById("code" + index).value.trim();
-        const correct = locks[index - 1];
-        const nextClass = "pass" + (index + 1);
-
-        if (input === correct) {
-            alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
-            if (index < 4) {
-                for (let el of document.getElementsByClassName(nextClass)) {
-                    el.style.display = "inline-block";
-                }
-            } else {
-                alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
-            }
-        } else {
-            alert("❌ Incorrect. Try again.");
-        }
-    }
+    // Wait for the h3 animation to finish before starting the paragraph typing effect
+    const header = 2000; // Adjust this to match the h3 typing animation duration
+    setTimeout(typeLine, header);
 });
+
