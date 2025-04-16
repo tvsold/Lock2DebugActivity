@@ -10,7 +10,6 @@ let passwordChunks = ["26", "07", "59", "69"];
 document.addEventListener("DOMContentLoaded", () => {
     const textElement = document.getElementById("start");
     const firstLockElements = document.getElementsByClassName("pass");
-    const labelElements = document.getElementsByTagName("label");  // To access all labels
     const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -25,11 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let lineIndex = 0;
     let charIndex = 0;
-
-    // Hide all lock inputs and labels initially
-    for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
-        el.style.display = "none";
-    }
 
     // Typewriter effect for the intro text
     function typeLine() {
@@ -46,12 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeLine, 500);
             }
         } else {
-            // Show first lock inputs and labels after intro finishes
+            // Show the first lock input after the intro finishes
             for (let el of firstLockElements) {
                 el.style.display = "inline-block";
-            }
-            for (let el of labelElements) {
-                el.style.display = "inline-block";  // Display the labels
             }
         }
     }
@@ -63,8 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitBtn = document.getElementById(`submit${i}`);
         if (submitBtn) {
             submitBtn.addEventListener("click", () => handleLock(i));
-        } else {
-            console.warn(`Submit button for lock ${i} not found.`);
         }
     }
 
@@ -79,9 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (userInput === correctAnswer) {
             alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
             if (index < 4) {
-                for (let el of document.getElementsByClassName(nextClass)) {
-                    el.style.display = "inline-block";
-                }
+                document.querySelector(`.pass${index + 1}`).style.display = "inline-block";
             } else {
                 alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
             }
@@ -90,3 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
