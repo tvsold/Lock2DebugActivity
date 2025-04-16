@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let lineIndex = 0;
     let charIndex = 0;
 
-    // Hide all lock inputs initially except .pass (Lock 1)
+    // Hide all lock inputs except the first one
     for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
         el.style.display = "none";
     }
 
-    // Typewriter effect
+    // Typewriter effect for the intro text
     function typeLine() {
         if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
@@ -45,29 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeLine, 500);
             }
         } else {
-            // Unlock next input fields after typing finishes
+            // Show first lock input after intro finishes
             for (let el of firstLockElements) {
                 el.style.display = "inline-block";
             }
         }
     }
 
-    // Start typing the message immediately
     typeLine();
 
-    // Add lock handlers
+    // Add submit event listeners for each lock
     for (let i = 1; i <= 4; i++) {
-        document.getElementById(`submit${i}`).addEventListener("click", () => {
-            handleLock(i);
-        });
+        const submitBtn = document.getElementById(`submit${i}`);
+        if (submitBtn) {
+            submitBtn.addEventListener("click", () => handleLock(i));
+        }
     }
 
     function handleLock(index) {
-        const input = document.getElementById("code" + index).value.trim();
-        const correct = locks[index - 1];
+        const inputEl = document.getElementById("code" + index);
+        if (!inputEl) return;
+
+        const userInput = inputEl.value.trim();
+        const correctAnswer = locks[index - 1];
         const nextClass = "pass" + (index + 1);
 
-        if (input === correct) {
+        if (userInput === correctAnswer) {
             alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
             if (index < 4) {
                 for (let el of document.getElementsByClassName(nextClass)) {
