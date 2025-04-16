@@ -35,7 +35,7 @@ body {
 label {
     display: block;
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 14px;  /* Make the label text a bit smaller */
     font-weight: bold;
 }
 
@@ -110,4 +110,3 @@ p {
     font-size: 1.2em;
     line-height: 1.6;
 }
-
