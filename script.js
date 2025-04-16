@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "MESSAGE FROM THE ARCHIVE:",
         "-------------------------",
-        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
+        "To unlock the secrets, one must first decode the ancient lines; within the maze of knowledge, logic will guide the way."
     ];
 
     let lineIndex = 0;
