@@ -48,10 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 lineIndex++;
                 setTimeout(typeLine, 500);
             }
+        } else {
+            // Unlock next input fields after typing finishes
+            for (let el of firstLockElements) {
+                el.style.display = "inline-block";
+            }
         }
     }
 
-    // Start typing immediately
+    // Start typing the message immediately
     typeLine();
 
     // Add lock handlers
