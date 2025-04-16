@@ -1,45 +1,94 @@
-let passwordParts = ['', '', '', ''];
+let locks = ["("Hello Word")", "if Kayla == Good", "}", "else:"];
 
-function debugCode(segment) {
-    let outputElement = document.getElementById(`output${segment}`);
+document.getElementById("submit1").addEventListener("click", function () {
+    handleLock(1);
+});
 
-    if (segment === 1) {
-        // Simulate the debugging of the first code piece
-        let fixedCode = true; // Simulate fix
-        if (fixedCode) {
-            outputElement.textContent = 'Code fixed! First two digits: 24';
-            passwordParts[0] = '24';
-        }
-    } else if (segment === 2) {
-        // Simulate the debugging of the second code piece
-        let fixedCode = true; // Simulate fix
-        if (fixedCode) {
-            outputElement.textContent = 'Code fixed! Second two digits: 96';
-            passwordParts[1] = '96';
-        }
-    } else if (segment === 3) {
-        // Simulate the debugging of the third code piece
-        let fixedCode = true; // Simulate fix
-        if (fixedCode) {
-            outputElement.textContent = 'Code fixed! Third two digits: 30';
-            passwordParts[2] = '30';
-        }
-    } else if (segment === 4) {
-        // Simulate the debugging of the fourth code piece
-        let fixedCode = true; // Simulate fix
-        if (fixedCode) {
-            outputElement.textContent = 'Code fixed! Fourth two digits: 14';
-            passwordParts[3] = '14';
-        }
-    }
+document.getElementById("submit2").addEventListener("click", function () {
+    handleLock(2);
+});
 
-    // Update the final password
-    let finalPassword = passwordParts.join('');
-    document.getElementById('password').textContent = finalPassword;
+document.getElementById("submit3").addEventListener("click", function () {
+    handleLock(3);
+});
 
-    // If all parts are solved, show the full password
-    if (passwordParts.every(part => part !== '')) {
-        document.getElementById('password').textContent = finalPassword;
+document.getElementById("submit4").addEventListener("click", function () {
+    handleLock(4);
+});
+
+function handleLock(index) {
+    const codeInput = document.getElementById("code" + index).value;
+    const nextPassClass = "pass" + (index + 1);
+
+    if (codeInput === locks[index - 1]) {
+        if (index < locks.length) {
+            const nextPassElements = document.getElementsByClassName(nextPassClass);
+            for (let i = 0; i < nextPassElements.length; i++) {
+                nextPassElements[i].style.display = "inline-block";
+            }
+        } else {
+            alert("Congratulations! The code is 26075969.");
+        }
+    } else {
+        alert("Incorrect password for Lock " + index + ".");
     }
 }
 
+// Select the h3 element
+const h3 = document.querySelector("h3");
+
+// Listen for when the typing animation ends
+h3.addEventListener("animationend", (event) => {
+    if (event.animationName === "typing") {
+        h3.classList.add("finished"); // Add the class to stop the cursor
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const textElement = document.getElementById("start");
+    const firstLockElements = document.getElementsByClassName("pass");
+    const lines = [
+        "Welcome to the Second Lock",
+        "You will need to examine the ancient code presented.",
+        "",
+        "Accessing encrypted data logs…",
+        "Data retrieval successful.",
+        "",
+        "Project BITWISE archive, last accessed: September 24th, 1978",
+        "Status: DECOMMISSIONED",
+        "Reason: [REDACTED]",
+        "",
+        "MESSAGE FROM THE ARCHIVE:",
+        "-------------------------",
+        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    // Function to type each line of the paragraph
+    function typeLine() {
+        if (lineIndex < lines.length) {
+            const currentLine = lines[lineIndex];
+            if (charIndex < currentLine.length) {
+                textElement.innerHTML += currentLine[charIndex];
+                charIndex++;
+                setTimeout(typeLine, 50); //Typing speed
+            } else {
+                //Add a newline after each line is complete
+                textElement.innerHTML += "<br>";
+                charIndex = 0;
+                lineIndex++;
+                setTimeout(typeLine, 500); //Delay before starting the next line
+            }
+        } else {
+            for (let i = 0; i < firstLockElements.length; i++) {
+                firstLockElements[i].style.display = "inline-block";
+            }
+        }
+    }
+
+    // Wait for the h3 animation to finish before starting the paragraph typing effect
+    const header = 2000; //Adjust this to match the h3 typing animation duration
+    setTimeout(typeLine, header);
+});
