@@ -78,25 +78,6 @@ button:hover {
     line-height: 1.5;
 }
 
-/* Styling for alerts and error messages */
-.alert {
-    background-color: #ffdd57;
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.alert.correct {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.alert.incorrect {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
 /* General styles for the page */
 h3 {
     font-family: 'Pixelify Sans', sans-serif;
@@ -110,4 +91,3 @@ p {
     font-size: 1.2em;
     line-height: 1.6;
 }
-
