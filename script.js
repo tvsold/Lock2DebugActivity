@@ -1,48 +1,11 @@
-let locks = ["("Hello Word")", "if Kayla == Good", "}", "else:"];
+let locks = [
+    'print("Hello World")',
+    "if Kayla == 'Good':",
+    "}",
+    "else:"
+];
 
-document.getElementById("submit1").addEventListener("click", function () {
-    handleLock(1);
-});
-
-document.getElementById("submit2").addEventListener("click", function () {
-    handleLock(2);
-});
-
-document.getElementById("submit3").addEventListener("click", function () {
-    handleLock(3);
-});
-
-document.getElementById("submit4").addEventListener("click", function () {
-    handleLock(4);
-});
-
-function handleLock(index) {
-    const codeInput = document.getElementById("code" + index).value;
-    const nextPassClass = "pass" + (index + 1);
-
-    if (codeInput === locks[index - 1]) {
-        if (index < locks.length) {
-            const nextPassElements = document.getElementsByClassName(nextPassClass);
-            for (let i = 0; i < nextPassElements.length; i++) {
-                nextPassElements[i].style.display = "inline-block";
-            }
-        } else {
-            alert("Congratulations! The code is 26075969.");
-        }
-    } else {
-        alert("Incorrect password for Lock " + index + ".");
-    }
-}
-
-// Select the h3 element
-const h3 = document.querySelector("h3");
-
-// Listen for when the typing animation ends
-h3.addEventListener("animationend", (event) => {
-    if (event.animationName === "typing") {
-        h3.classList.add("finished"); // Add the class to stop the cursor
-    }
-});
+let passwordChunks = ["26", "07", "59", "69"];
 
 document.addEventListener("DOMContentLoaded", () => {
     const textElement = document.getElementById("start");
@@ -54,32 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "Accessing encrypted data logs…",
         "Data retrieval successful.",
         "",
-        "Project BITWISE archive, last accessed: September 24th, 1978",
-        "Status: DECOMMISSIONED",
-        "Reason: [REDACTED]",
-        "",
-        "MESSAGE FROM THE ARCHIVE:",
-        "-------------------------",
-        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
     ];
 
     let lineIndex = 0;
     let charIndex = 0;
 
-    // Function to type each line of the paragraph
+    // Typewriter effect
     function typeLine() {
         if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
             if (charIndex < currentLine.length) {
                 textElement.innerHTML += currentLine[charIndex];
                 charIndex++;
-                setTimeout(typeLine, 50); //Typing speed
+                setTimeout(typeLine, 50);
             } else {
-                //Add a newline after each line is complete
                 textElement.innerHTML += "<br>";
                 charIndex = 0;
                 lineIndex++;
-                setTimeout(typeLine, 500); //Delay before starting the next line
+                setTimeout(typeLine, 500);
             }
         } else {
             for (let i = 0; i < firstLockElements.length; i++) {
@@ -88,7 +43,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Wait for the h3 animation to finish before starting the paragraph typing effect
-    const header = 2000; //Adjust this to match the h3 typing animation duration
-    setTimeout(typeLine, header);
+    // Wait for heading animation
+    setTimeout(typeLine, 2000);
+
+    // Hide all except first lock fields
+    for (let i = 0; i < firstLockElements.length; i++) {
+        if (!firstLockElements[i].classList.contains("pass")) {
+            firstLockElements[i].style.display = "none";
+        }
+    }
+
+    // Add event listeners for each submit button
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById(`submit${i}`).addEventListener("click", () => {
+            handleLock(i);
+        });
+    }
+
+    function handleLock(index) {
+        const input = document.getElementById("code" + index).value.trim();
+        const correctAnswer = locks[index - 1];
+        const nextClass = "pass" + (index + 1);
+
+        if (input === correctAnswer) {
+            alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+            if (index < locks.length) {
+                const nextElements = document.getElementsByClassName(nextClass);
+                for (let i = 0; i < nextElements.length; i++) {
+                    nextElements[i].style.display = "inline-block";
+                }
+            } else {
+                alert(`All locks solved! Full code: ${passwordChunks.join("")}`);
+            }
+        } else {
+            alert("❌ Incorrect. Try again.");
+        }
+    }
 });
+
