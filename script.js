@@ -1,38 +1,20 @@
 // Correct code snippets for the locks
 let locks = [
-    "('Hello World')", // First lock (corrected)
-    "if (Kayla === 'Good')", // Second lock (corrected)
-    "}", // Third lock (corrected)
-    "else:" // Fourth lock (corrected)
+    "('Hello World')",
+    "if (Kayla === 'Good')",
+    "}",
+    "else:"
 ];
 
-// Add event listeners for each submit button
-document.getElementById("submit1").addEventListener("click", function () {
-    handleLock(1); // Handles first lock
-});
-
-document.getElementById("submit2").addEventListener("click", function () {
-    handleLock(2); // Handles second lock
-});
-
-document.getElementById("submit3").addEventListener("click", function () {
-    handleLock(3); // Handles third lock
-});
-
-document.getElementById("submit4").addEventListener("click", function () {
-    handleLock(4); // Handles fourth lock
-});
-
-// Function to handle the lock input
 function handleLock(index) {
-    const codeInput = document.getElementById("code" + index).value;
-    const nextPassClass = "pass" + (index + 1);
+    const input = document.getElementById("code" + index).value;
+    const nextClass = "pass" + (index + 1);
 
-    if (codeInput === locks[index - 1]) {
+    if (input === locks[index - 1]) {
         if (index < locks.length) {
-            const nextPassElements = document.getElementsByClassName(nextPassClass);
-            for (let i = 0; i < nextPassElements.length; i++) {
-                nextPassElements[i].style.display = "inline-block"; // Reveal the next lock input
+            const nextElements = document.getElementsByClassName(nextClass);
+            for (let el of nextElements) {
+                el.style.display = "inline-block";
             }
         } else {
             alert("Congratulations! The code is 26075969.");
@@ -42,19 +24,7 @@ function handleLock(index) {
     }
 }
 
-// Select the h3 element
-const h3 = document.querySelector("h3");
-
-// Listen for when the typing animation ends
-h3.addEventListener("animationend", (event) => {
-    if (event.animationName === "typing") {
-        h3.classList.add("finished"); // Add the class to stop the cursor
-    }
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-    const textElement = document.getElementById("start");
-    const firstLockElements = document.getElementsByClassName("pass");
     const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -66,37 +36,42 @@ document.addEventListener("DOMContentLoaded", () => {
         "Status: DECOMMISSIONED",
         "Reason: [REDACTED]",
         "",
-        "“Those who solve the ancient code step deeper into the maze, where knowledge lights the way.”",
+        "“Those who solve the ancient code step deeper into the maze,",
+        "where knowledge lights the way.”"
     ];
 
-    let lineIndex = 0;
-    let charIndex = 0;
+    const start = document.getElementById("start");
+    const firstLock = document.getElementsByClassName("pass");
+    let line = 0, char = 0;
 
-    // Function to type each line of the paragraph
     function typeLine() {
-        if (lineIndex < lines.length) {
-            const currentLine = lines[lineIndex];
-            if (charIndex < currentLine.length) {
-                textElement.innerHTML += currentLine[charIndex];
-                charIndex++;
-                setTimeout(typeLine, 50); // Typing speed
+        if (line < lines.length) {
+            const text = lines[line];
+            if (char < text.length) {
+                start.innerHTML += text[char];
+                char++;
+                setTimeout(typeLine, 40);
             } else {
-                // Add a newline after each line is complete
-                textElement.innerHTML += "<br>";
-                charIndex = 0;
-                lineIndex++;
-                setTimeout(typeLine, 500); // Delay before starting the next line
+                start.innerHTML += "<br>";
+                char = 0;
+                line++;
+                setTimeout(typeLine, 500);
             }
         } else {
-            // Reveal the first lock input after the typing is complete
-            for (let i = 0; i < firstLockElements.length; i++) {
-                firstLockElements[i].style.display = "inline-block";
+            for (let el of firstLock) {
+                el.style.display = "inline-block";
             }
         }
     }
 
-    // Wait for the h3 animation to finish before starting the paragraph typing effect
-    const header = 2000; // Adjust this to match the h3 typing animation duration
-    setTimeout(typeLine, header);
+    const header = document.querySelector("h3");
+    header.addEventListener("animationend", () => {
+        header.classList.add("finished");
+        setTimeout(typeLine, 300);
+    });
+
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById("submit" + i).addEventListener("click", () => handleLock(i));
+    }
 });
 
