@@ -35,8 +35,9 @@ body {
 label {
     display: block;
     margin-top: 10px;
-    font-size: 14px;  /* Make the label text a bit smaller */
+    font-size: 14px; /* Slightly smaller */
     font-weight: bold;
+    color: #f0f0f0; /* Make the text white for contrast */
 }
 
 input[type="text"] {
@@ -109,4 +110,11 @@ p {
     font-family: 'Mali', sans-serif;
     font-size: 1.2em;
     line-height: 1.6;
+}
+
+/* Added a special class for lock labels */
+.lock-label {
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
 }
