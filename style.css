@@ -35,22 +35,23 @@ body {
 label {
     display: block;
     margin-top: 10px;
-    font-size: 14px; /* Slightly smaller */
+    font-size: 16px; /* Reduced font size */
     font-weight: bold;
-    color: #f0f0f0; /* Make the text white for contrast */
+    color: #fff;
 }
 
 input[type="text"] {
     width: 300px;
     padding: 10px;
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 14px; /* Reduced font size */
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #333;
     color: #fff;
 }
 
+/* Button styling */
 button {
     padding: 10px 15px;
     margin-top: 10px;
@@ -75,8 +76,9 @@ button:hover {
 #start {
     margin-top: 20px;
     font-family: 'Gamja Flower', sans-serif;
-    font-size: 20px;
+    font-size: 18px; /* Slightly reduced font size */
     line-height: 1.5;
+    color: #f0f0f0;
 }
 
 /* Styling for alerts and error messages */
@@ -110,11 +112,5 @@ p {
     font-family: 'Mali', sans-serif;
     font-size: 1.2em;
     line-height: 1.6;
-}
-
-/* Added a special class for lock labels */
-.lock-label {
-    font-size: 14px;
-    font-weight: normal;
-    color: #fff;
+    color: #f0f0f0;
 }
