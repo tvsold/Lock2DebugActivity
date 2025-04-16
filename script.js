@@ -66,9 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Status: DECOMMISSIONED",
         "Reason: [REDACTED]",
         "",
-        "MESSAGE FROM THE ARCHIVE:",
-        "-------------------------",
-        "“Those who solve the ancient code step deeper into the maze, where knowledge lights the way.”"
+        "“Those who solve the ancient code step deeper into the maze, where knowledge lights the way.”",
     ];
 
     let lineIndex = 0;
