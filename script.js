@@ -25,7 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let lineIndex = 0;
     let charIndex = 0;
 
-    // Typewriter effect for the intro text
+    // Hide all lock inputs initially except .pass (Lock 1)
+    for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
+        el.style.display = "none";
+    }
+
+    // Typewriter effect
     function typeLine() {
         if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
@@ -40,13 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeLine, 500);
             }
         } else {
-            // Show the first lock input after the intro finishes
+            // Show first lock input after typing finishes
             for (let el of firstLockElements) {
                 el.style.display = "inline-block";
             }
         }
     }
 
+    // Start typing the message immediately
     typeLine();
 
     // Add submit event listeners for each lock
@@ -59,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleLock(index) {
         const inputEl = document.getElementById("code" + index);
-        if (!inputEl) return; // Make sure the input exists
+        if (!inputEl) return;
 
         const userInput = inputEl.value.trim();
         const correctAnswer = locks[index - 1];
@@ -68,7 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (userInput === correctAnswer) {
             alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
             if (index < 4) {
-                document.querySelector(`.pass${index + 1}`).style.display = "inline-block";
+                for (let el of document.getElementsByClassName(nextClass)) {
+                    el.style.display = "inline-block";
+                }
             } else {
                 alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
             }
@@ -77,4 +85,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-
