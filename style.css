@@ -1,65 +1,112 @@
+/* Body and general layout */
 body {
-    background-color: #101720;
-    color: #dce3ea;
     font-family: 'Fira Code', monospace;
-    padding: 30px;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    padding: 20px;
+    margin: 0;
+    font-size: 16px;
 }
 
-.typing {
-    font-family: 'Pixelify Sans', cursive;
-    font-size: 2em;
-    width: fit-content;
-    border-right: 2px solid #dce3ea;
+/* Typing effect for the header */
+.typing-header {
+    width: 0;
     white-space: nowrap;
     overflow: hidden;
-    animation: typing 2s steps(30), blink 0.7s step-end infinite;
+    border-right: 3px solid black;
+    animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
+    margin-bottom: 20px;
 }
 
-.finished {
-    border-right: none;
-    animation: none;
-}
-
+/* Keyframes for typing animation */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    to {
+        width: 100%;
+    }
 }
 
 @keyframes blink {
-    50% { border-color: transparent }
+    50% {
+        border-color: transparent;
+    }
 }
 
-#start {
-    margin-top: 20px;
-    line-height: 1.6;
+/* Style for the lock inputs and buttons */
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.lock-inputs {
-    margin-top: 30px;
-}
-
-input, button {
-    margin: 8px 0;
-    padding: 8px;
-    border-radius: 6px;
-    font-family: 'Fira Code', monospace;
-    font-size: 1em;
-    border: 1px solid #555;
-    background-color: #1e2a38;
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #333;
     color: #fff;
 }
 
 button {
-    cursor: pointer;
-    background-color: #3c8dbc;
+    padding: 10px 15px;
+    margin-top: 10px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: #fff;
     border: none;
-    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #357ca5;
+    background-color: #218838;
 }
 
+/* Hide all lock inputs initially except .pass (Lock 1) */
 .pass2, .pass3, .pass4 {
     display: none;
+}
+
+/* Typing animation for the paragraph text */
+#start {
+    margin-top: 20px;
+    font-family: 'Gamja Flower', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+/* Styling for alerts and error messages */
+.alert {
+    background-color: #ffdd57;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.alert.correct {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.alert.incorrect {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+/* General styles for the page */
+h3 {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 2.5em;
+    color: #ff7f50;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: 'Mali', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.6;
 }
