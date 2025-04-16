@@ -8,20 +8,9 @@ let locks = [
 let passwordChunks = ["26", "07", "59", "69"];
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Ensure the element with id "start" is available
     const textElement = document.getElementById("start");
-    if (!textElement) {
-        console.error('Element with id "start" not found!');
-        return; // Stop execution if the element is missing
-    }
-
-    // Ensure elements for lock inputs are available
     const firstLockElements = document.getElementsByClassName("pass");
-    if (firstLockElements.length === 0) {
-        console.error('Elements with class "pass" not found!');
-        return;
-    }
-
+    const labelElements = document.getElementsByTagName("label");  // To access all labels
     const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -37,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let lineIndex = 0;
     let charIndex = 0;
 
-    // Hide all lock inputs except the first one
+    // Hide all lock inputs and labels initially
     for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
         el.style.display = "none";
     }
@@ -57,9 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeLine, 500);
             }
         } else {
-            // Show first lock input after intro finishes
+            // Show first lock inputs and labels after intro finishes
             for (let el of firstLockElements) {
                 el.style.display = "inline-block";
+            }
+            for (let el of labelElements) {
+                el.style.display = "inline-block";  // Display the labels
             }
         }
     }
