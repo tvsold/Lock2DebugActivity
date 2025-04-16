@@ -17,10 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
         "Accessing encrypted data logs…",
         "Data retrieval successful.",
         "",
+        "Project BITWISE archive, last accessed: September 24th, 1978",
+        "Status: DECOMMISSIONED",
+        "Reason: [REDACTED]",
+        "",
+        "MESSAGE FROM THE ARCHIVE:",
+        "-------------------------",
+        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
     ];
 
     let lineIndex = 0;
     let charIndex = 0;
+
+    // Hide all lock inputs initially except .pass (Lock 1)
+    for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
+        el.style.display = "none";
+    }
 
     // Typewriter effect
     function typeLine() {
@@ -36,24 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 lineIndex++;
                 setTimeout(typeLine, 500);
             }
-        } else {
-            for (let i = 0; i < firstLockElements.length; i++) {
-                firstLockElements[i].style.display = "inline-block";
-            }
         }
     }
 
-    // Wait for heading animation
-    setTimeout(typeLine, 2000);
+    // Start typing immediately
+    typeLine();
 
-    // Hide all except first lock fields
-    for (let i = 0; i < firstLockElements.length; i++) {
-        if (!firstLockElements[i].classList.contains("pass")) {
-            firstLockElements[i].style.display = "none";
-        }
-    }
-
-    // Add event listeners for each submit button
+    // Add lock handlers
     for (let i = 1; i <= 4; i++) {
         document.getElementById(`submit${i}`).addEventListener("click", () => {
             handleLock(i);
@@ -62,22 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleLock(index) {
         const input = document.getElementById("code" + index).value.trim();
-        const correctAnswer = locks[index - 1];
+        const correct = locks[index - 1];
         const nextClass = "pass" + (index + 1);
 
-        if (input === correctAnswer) {
+        if (input === correct) {
             alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
-            if (index < locks.length) {
-                const nextElements = document.getElementsByClassName(nextClass);
-                for (let i = 0; i < nextElements.length; i++) {
-                    nextElements[i].style.display = "inline-block";
+            if (index < 4) {
+                for (let el of document.getElementsByClassName(nextClass)) {
+                    el.style.display = "inline-block";
                 }
             } else {
-                alert(`All locks solved! Full code: ${passwordChunks.join("")}`);
+                alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
             }
         } else {
             alert("❌ Incorrect. Try again.");
         }
     }
 });
-
