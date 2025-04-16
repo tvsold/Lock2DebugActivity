@@ -1,33 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lock 2 Challenge</title>
+    <!-- Google Fonts link -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gamja+Flower&family=Mali:wght@200..700&family=Pixelify+Sans:wght@400..700&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    <!-- Link to external CSS file -->
     <link href="./style.css" rel="stylesheet">
+    <!-- Link to external JavaScript file -->
     <script src="./script.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <!-- Typing header with animation -->
     <h3 class="typing-header">Lock 2 Debugging Challenge</h3>
+
+    <!-- Starting message that will be typed out -->
     <p id="start"></p>
 
-    <!-- Lock 1 -->
+    <!-- First lock input (hidden until unlocked) -->
     <label for="code1" class="pass">Enter the corrected line of code:</label>
-    <input type="text" id="code1" class="pass" />
-    <button id="submit1">Submit</button>
+    <input type="text" id="code1" class="pass">
+    <button id="submit1" class="pass">Submit</button>
 
-    <!-- Lock 2 -->
+    <!-- Second lock input (hidden until first lock is solved) -->
     <label for="code2" class="pass2">Enter the corrected line of code:</label>
-    <input type="text" id="code2" class="pass2" />
+    <input type="text" id="code2" class="pass2">
     <button id="submit2" class="pass2">Submit</button>
 
-    <!-- Lock 3 -->
+    <!-- Third lock input (hidden until second lock is solved) -->
     <label for="code3" class="pass3">Enter the corrected line of code:</label>
-    <input type="text" id="code3" class="pass3" />
+    <input type="text" id="code3" class="pass3">
     <button id="submit3" class="pass3">Submit</button>
 
-    <!-- Lock 4 -->
+    <!-- Fourth lock input (hidden until third lock is solved) -->
     <label for="code4" class="pass4">Enter the corrected line of code:</label>
-    <input type="text" id="code4" class="pass4" />
+    <input type="text" id="code4" class="pass4">
     <button id="submit4" class="pass4">Submit</button>
 </body>
+
 </html>
+
