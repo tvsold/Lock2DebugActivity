@@ -1,110 +1,65 @@
-/* Font and background styling */
 body {
+    background-color: #101720;
+    color: #dce3ea;
     font-family: 'Fira Code', monospace;
-    background: linear-gradient(to right, #1e1e2f, #2b0033);
-    color: #fff;
-    margin: 0;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-}
-
-/* Container for better structure */
-.container {
-    max-width: 600px;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #ff00ff55;
-    backdrop-filter: blur(10px);
 }
 
-/* Typing heading */
 .typing {
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff;
+    font-family: 'Pixelify Sans', cursive;
+    font-size: 2em;
+    width: fit-content;
+    border-right: 2px solid #dce3ea;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 2px solid #fff;
-    width: 0;
-    animation: typing 2s steps(28, end) forwards, blink 0.7s step-end infinite;
-    margin-bottom: 20px;
-    text-shadow: 0 0 5px #00fff7;
+    animation: typing 2s steps(30), blink 0.7s step-end infinite;
 }
 
 .finished {
-    animation: none;
     border-right: none;
+    animation: none;
 }
 
-/* Typing animation keyframes */
 @keyframes typing {
-    from { width: 0; }
-    to { width: 28ch; }
+    from { width: 0 }
+    to { width: 100% }
 }
 
 @keyframes blink {
-    50% { border-color: transparent; }
+    50% { border-color: transparent }
 }
 
-/* Paragraph text */
 #start {
-    line-height: 1.7;
-    font-size: 16px;
-    margin-bottom: 30px;
-    color: #ffb7ff;
+    margin-top: 20px;
+    line-height: 1.6;
 }
 
-/* Hide lock sections until unlocked */
-.pass, .pass2, .pass3, .pass4 {
-    display: none;
+.lock-inputs {
+    margin-top: 30px;
 }
 
-/* Lock input group styling */
-.lock-group {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #ffc9ff;
-}
-
-/* Input styling */
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ff00ff77;
+input, button {
+    margin: 8px 0;
+    padding: 8px;
     border-radius: 6px;
-    background-color: #2e2e3e;
+    font-family: 'Fira Code', monospace;
+    font-size: 1em;
+    border: 1px solid #555;
+    background-color: #1e2a38;
     color: #fff;
-    font-size: 14px;
-    transition: border 0.3s ease;
 }
 
-input[type="text"]:focus {
-    outline: none;
-    border-color: #ff80ff;
-}
-
-/* Button styling */
 button {
-    margin-top: 8px;
-    padding: 10px 20px;
-    background: linear-gradient(145deg, #ff00ff, #a000ff);
-    border: none;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 14px;
     cursor: pointer;
-    box-shadow: 0 0 10px #ff00ff55;
-    transition: background 0.3s ease;
+    background-color: #3c8dbc;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background: linear-gradient(145deg, #ff40ff, #a030ff);
+    background-color: #357ca5;
+}
+
+.pass2, .pass3, .pass4 {
+    display: none;
 }
