@@ -8,8 +8,20 @@ let locks = [
 let passwordChunks = ["26", "07", "59", "69"];
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Ensure the element with id "start" is available
     const textElement = document.getElementById("start");
+    if (!textElement) {
+        console.error('Element with id "start" not found!');
+        return; // Stop execution if the element is missing
+    }
+
+    // Ensure elements for lock inputs are available
     const firstLockElements = document.getElementsByClassName("pass");
+    if (firstLockElements.length === 0) {
+        console.error('Elements with class "pass" not found!');
+        return;
+    }
+
     const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -59,12 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitBtn = document.getElementById(`submit${i}`);
         if (submitBtn) {
             submitBtn.addEventListener("click", () => handleLock(i));
+        } else {
+            console.warn(`Submit button for lock ${i} not found.`);
         }
     }
 
     function handleLock(index) {
         const inputEl = document.getElementById("code" + index);
-        if (!inputEl) return;
+        if (!inputEl) return; // Make sure the input exists
 
         const userInput = inputEl.value.trim();
         const correctAnswer = locks[index - 1];
