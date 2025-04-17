@@ -23,31 +23,8 @@
       margin-bottom: -10px;
       color: greenyellow;
       text-align: center;
-      overflow: hidden; /*Ensures the content is not revealed until the animation*/
-      border-right: .15em solid rgb(0, 0, 255); /* The typwriter cursor*/
-      white-space: nowrap; /*Keeps the content on a single line*/
-      margin: 0 auto; /*Gives that scrolling effect as the typing happens*/
-      letter-spacing: .15em;
-      animation: 
-        typing 2s steps(40, end),
-        blink-caret .6s step-end infinite; /*Blinking cursor effect*/
-    }
-
-    /* The typing effect */
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 19ch }
-    }
-
-    /* The typewriter cursor effect */
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: white; }
-    }
-
-    h3.finished {
-      border-right: none; /* Removes the blinking cursor */
-      animation: typing 2s steps(40, end);
+      /* Remove typewriter effect */
+      white-space: nowrap;
     }
 
     #start {
@@ -87,6 +64,13 @@
       display: inline-block;
       font-size: 16px;
     }
+
+    #error {
+      font-size: 24px;
+      color: red; /* Error text color updated to red */
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
