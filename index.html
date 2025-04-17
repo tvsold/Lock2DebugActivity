@@ -2,89 +2,159 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lock 2 Debug Challenge</title>
-    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Lock 2: Debug Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <style>
         body {
-            background-color: #0f0f0f;
-            color: #00ff99;
-            font-family: 'Share Tech Mono', monospace;
-            padding: 30px;
+            font-family: 'Pixelify Sans', sans-serif;
+            background-color: #1e1e1e;
+            color: #00ff88;
+            padding: 20px;
+            margin: 0;
             font-size: 16px;
         }
 
-        h1 {
-            font-family: 'Orbitron', sans-serif;
+        h3 {
+            font-family: 'Jersey 10', cursive;
             font-size: 2.5em;
-            color: #00ffcc;
+            color: #00ff88;
+            margin-bottom: 20px;
         }
 
-        #start {
-            font-family: 'Major Mono Display', monospace;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-top: 20px;
+        .typing-header {
+            width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #00ff88;
+            animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
+            margin-bottom: 20px;
         }
 
-        .lock-input {
-            display: none;
-            margin-top: 20px;
+        @keyframes typing {
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
         }
 
         label {
-            font-size: 1.2em;
             display: block;
-            margin-bottom: 8px;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         input[type="text"] {
             width: 300px;
             padding: 10px;
-            background-color: #1e1e1e;
-            border: 2px solid #00ff99;
-            color: #00ff99;
-            font-family: 'Share Tech Mono', monospace;
+            margin-top: 5px;
             font-size: 16px;
+            border: 1px solid #00ff88;
             border-radius: 4px;
+            background-color: #333;
+            color: #00ff88;
         }
 
         button {
+            padding: 10px 15px;
             margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #00ff99;
-            color: #0f0f0f;
+            font-size: 16px;
+            background-color: #00ff88;
+            color: #000;
             border: none;
             border-radius: 4px;
-            font-weight: bold;
             cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
         }
 
         button:hover {
-            background-color: #00cc7a;
+            background-color: #00cc66;
+        }
+
+        #start {
+            margin-top: 20px;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .pass2, .pass3, .pass4 {
+            display: none;
+        }
+
+        .lock-input {
+            margin-top: 20px;
+        }
+
+        .instruction-line {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h1>LOCK 2: DEBUG THE CODE</h1>
+    <h3 class="typing-header">Debug the Ancient Lock</h3>
     <div id="start"></div>
 
-    <div id="lock-section" class="lock-input">
-        <label for="code1">Enter correct line of code:</label>
-        <input type="text" id="code1" />
+    <!-- Lock 1 -->
+    <div class="lock-input pass">
+        <label for="code1">Lock 1:</label>
+        <input type="text" id="code1" placeholder='Enter: print("Hello World")'>
         <button id="submit1">Submit</button>
+        <div class="instruction-line">Enter the correct line of code to proceed.</div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const correctCode = 'print("Hello World")';
-            const passwordChunk = "26";
-            const start = document.getElementById("start");
-            const lockSection = document.getElementById("lock-section");
+    <!-- Lock 2 -->
+    <div class="lock-input pass2">
+        <label for="code2">Lock 2:</label>
+        <input type="text" id="code2" placeholder="Enter: if Kayla == 'Good':">
+        <button id="submit2">Submit</button>
+        <div class="instruction-line">Enter the correct line of code to proceed.</div>
+    </div>
 
+    <!-- Lock 3 -->
+    <div class="lock-input pass3">
+        <label for="code3">Lock 3:</label>
+        <input type="text" id="code3" placeholder="Enter: }">
+        <button id="submit3">Submit</button>
+        <div class="instruction-line">Enter the correct line of code to proceed.</div>
+    </div>
+
+    <!-- Lock 4 -->
+    <div class="lock-input pass4">
+        <label for="code4">Lock 4:</label>
+        <input type="text" id="code4" placeholder="Enter: else:">
+        <button id="submit4">Submit</button>
+        <div class="instruction-line">Enter the correct line of code to proceed.</div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let locks = [
+            'print("Hello World")',
+            "if Kayla == 'Good':",
+            "}",
+            "else:"
+        ];
+
+        let passwordChunks = ["26", "07", "59", "69"];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const textElement = document.getElementById("start");
+            const firstLockElements = document.getElementsByClassName("pass");
             const lines = [
-                "Welcome to the Second Lock.",
+                "Welcome to the Second Lock",
                 "You will need to examine the ancient code presented.",
                 "",
                 "Accessing encrypted data logs…",
@@ -100,36 +170,61 @@
             let lineIndex = 0;
             let charIndex = 0;
 
+            for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
+                el.style.display = "none";
+            }
+
             function typeLine() {
                 if (lineIndex < lines.length) {
                     const currentLine = lines[lineIndex];
                     if (charIndex < currentLine.length) {
-                        start.innerHTML += currentLine.charAt(charIndex);
+                        textElement.innerHTML += currentLine[charIndex];
                         charIndex++;
-                        setTimeout(typeLine, 30);
+                        setTimeout(typeLine, 40);
                     } else {
-                        start.innerHTML += "<br>";
+                        textElement.innerHTML += "<br>";
                         charIndex = 0;
                         lineIndex++;
                         setTimeout(typeLine, 300);
                     }
                 } else {
-                    lockSection.style.display = "block";
+                    for (let el of firstLockElements) {
+                        el.style.display = "inline-block";
+                    }
                 }
             }
 
             typeLine();
 
-            document.getElementById("submit1").addEventListener("click", () => {
-                const input = document.getElementById("code1").value.trim();
-                if (input === correctCode) {
-                    alert("✅ Correct! Code fragment: " + passwordChunk);
+            for (let i = 1; i <= 4; i++) {
+                const submitBtn = document.getElementById(`submit${i}`);
+                if (submitBtn) {
+                    submitBtn.addEventListener("click", () => handleLock(i));
+                }
+            }
+
+            function handleLock(index) {
+                const inputEl = document.getElementById("code" + index);
+                if (!inputEl) return;
+
+                const userInput = inputEl.value.trim();
+                const correctAnswer = locks[index - 1];
+                const nextClass = "pass" + (index + 1);
+
+                if (userInput === correctAnswer) {
+                    alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+                    if (index < 4) {
+                        for (let el of document.getElementsByClassName(nextClass)) {
+                            el.style.display = "inline-block";
+                        }
+                    } else {
+                        alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
+                    }
                 } else {
                     alert("❌ Incorrect. Try again.");
                 }
-            });
+            }
         });
     </script>
 </body>
 </html>
-
