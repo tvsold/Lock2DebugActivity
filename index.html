@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Unlocking Game</title>
-    <!-- Link to Google Fonts for Pixelify Sans, Jersey 10, and other fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Pixelify+Sans&display=swap" rel="stylesheet">
+    <title>Unlock the Maze</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
-    <h3 class="typing-header">Welcome to the Second Lock</h3>
-
     <div id="start"></div>
 
+    <h3 class="typing-header">Welcome to the Maze!</h3>
+
+    <p id="start">
+        Explore the mysterious code to unlock secrets.
+    </p>
+
     <div class="lock-container">
-        <!-- Lock input fields -->
-        <div class="lock pass">
+        <div class="lock-input pass">
             <label for="code1">Enter the first line of code:</label>
-            <input type="text" id="code1">
+            <input type="text" id="code1" placeholder="Enter code here">
             <button id="submit1">Submit</button>
         </div>
-
-        <div class="lock pass2">
+        <div class="lock-input pass2">
             <label for="code2">Enter the second line of code:</label>
-            <input type="text" id="code2">
+            <input type="text" id="code2" placeholder="Enter code here">
             <button id="submit2">Submit</button>
         </div>
-
-        <div class="lock pass3">
+        <div class="lock-input pass3">
             <label for="code3">Enter the third line of code:</label>
-            <input type="text" id="code3">
+            <input type="text" id="code3" placeholder="Enter code here">
             <button id="submit3">Submit</button>
         </div>
-
-        <div class="lock pass4">
+        <div class="lock-input pass4">
             <label for="code4">Enter the fourth line of code:</label>
-            <input type="text" id="code4">
+            <input type="text" id="code4" placeholder="Enter code here">
             <button id="submit4">Submit</button>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
+
