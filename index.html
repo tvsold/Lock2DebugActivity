@@ -45,7 +45,6 @@
     input[type="text"] {
       width: 300px;
       padding: 10px;
-      margin-top: 10px;
       font-size: 16px;
       border: 1px solid #00ff99;
       border-radius: 4px;
@@ -54,9 +53,16 @@
       font-family: 'Pixelify Sans', sans-serif;
     }
 
+    /* Positioning for submit button (to the right of input field) */
+    .input-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
     button {
       padding: 10px 15px;
-      margin-top: 10px;
+      margin-left: 10px;
       font-size: 16px;
       background-color: #00ff99;
       color: #0b0c10;
@@ -99,8 +105,8 @@
     /* Ensure the button is aligned under the input */
     .input-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: row;
+      align-items: center;
     }
   </style>
 </head>
