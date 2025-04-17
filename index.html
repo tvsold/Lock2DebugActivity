@@ -117,8 +117,8 @@
   <script>
     const locks = [
       'print("Hello World")',
-      "if 'Kayla' == 'Good':",
-      "good_students == ['Kayla', 'Lily', 'Peter']",
+      "if 'StartUp' == 'True':",
+      "restore == ['Debug', 'Recompile', 'Save']",
       "else:"
     ];
 
@@ -142,7 +142,10 @@
         "",
         "MESSAGE FROM THE ARCHIVE:",
         "-------------------------",
-        "To enter the maze, debug the ancient lines. Only truth grants passage."
+        "The old code stutters, broken by time and corruption."
+        "There is a key buried in its loops… but it lies hidden beneath faults."
+        "Restore what was lost. Debug. Recompile."
+        "The machine remembers, if you can teach it again…"
       ];
 
       let lineIndex = 0, charIndex = 0;
@@ -188,9 +191,9 @@
           responseBox.textContent = responses[index - 1];
           if (index < 4) {
             const nextError = [
-              `<b>ERROR 2:</b><br>if Kayla equal to Good'`,
-              `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`,
-              `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print("Good job Peter")<br>or else:`
+              `<b>ERROR 2:</b><br>if StartUp equal to True'`,
+              `<b>ERROR 3:</b><br>restore == ('Debug', 'Recompile', 'Save']`,
+              `<b>ERROR 4:</b><br>if 'ShutDown' == 'True':<br>    print("818 Protocol unneeded")<br>or else:`
             ];
             errorElement.innerHTML = nextError[index - 1];
             document.querySelector(`.pass${index + 1}`).style.display = "block";
