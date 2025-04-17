@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
 
   <style>
-    /* General layout */
     body {
       font-family: 'Pixelify Sans', sans-serif;
       background-color: #0b0c10;
@@ -18,7 +17,6 @@
       font-size: 18px;
     }
 
-    /* Header with cyber glow */
     h3 {
       font-family: 'Pixelify Sans', sans-serif;
       font-size: 3em;
@@ -27,21 +25,18 @@
       margin-bottom: 20px;
     }
 
-    /* Error text */
     #error {
       font-size: 24px;
       color: #ff3333;
       margin-top: 20px;
     }
 
-    /* Typing intro */
     #start {
       font-size: 20px;
       line-height: 1.6;
       margin-top: 20px;
     }
 
-    /* Input fields */
     input[type="text"] {
       width: 300px;
       padding: 10px;
@@ -75,13 +70,19 @@
       display: none;
       margin-top: 20px;
     }
+
+    .fragment {
+      margin-left: 15px;
+      color: #FFD700;
+      font-size: 16px;
+      font-family: 'Pixelify Sans', sans-serif;
+    }
   </style>
 </head>
 <body>
   <h3>SECOND LOCK</h3>
   <div id="start"></div>
 
-  <!-- Error display -->
   <div id="error"></div>
 
   <!-- Lock 1 -->
@@ -89,6 +90,7 @@
     <label>Enter Code Line 1:</label>
     <input type="text" id="code1" />
     <button id="submit1">Submit</button>
+    <span id="frag1" class="fragment"></span>
   </div>
 
   <!-- Lock 2 -->
@@ -96,6 +98,7 @@
     <label>Enter Code Line 2:</label>
     <input type="text" id="code2" />
     <button id="submit2">Submit</button>
+    <span id="frag2" class="fragment"></span>
   </div>
 
   <!-- Lock 3 -->
@@ -103,6 +106,7 @@
     <label>Enter Code Line 3:</label>
     <input type="text" id="code3" />
     <button id="submit3">Submit</button>
+    <span id="frag3" class="fragment"></span>
   </div>
 
   <!-- Lock 4 -->
@@ -110,22 +114,23 @@
     <label>Enter Code Line 4:</label>
     <input type="text" id="code4" />
     <button id="submit4">Submit</button>
+    <span id="frag4" class="fragment"></span>
   </div>
 
   <script>
     let locks = [
-      'print("Hello World")', // Error 1
-      "if 'Kayla' == 'Good':", // Error 2
-      "good_students == ['Kayla', 'Lily', 'Peter']", // Error 3
-      "else:" // Error 4
+      'print("Hello World")',
+      "if 'Kayla' == 'Good':",
+      "good_students == ['Kayla', 'Lily', 'Peter']",
+      "else:"
     ];
 
     let passwordChunks = ["26", "07", "59", "69"];
 
     document.addEventListener("DOMContentLoaded", () => {
       const textElement = document.getElementById("start");
-      const firstLockElements = document.getElementsByClassName("pass");
       const errorElement = document.getElementById("error");
+      const firstLockElements = document.getElementsByClassName("pass");
       const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -141,12 +146,10 @@
       let lineIndex = 0;
       let charIndex = 0;
 
-      // Hide other lock inputs initially
       for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
         el.style.display = "none";
       }
 
-      // Typewriter effect
       function typeLine() {
         if (lineIndex < lines.length) {
           const currentLine = lines[lineIndex];
@@ -161,10 +164,7 @@
             setTimeout(typeLine, 300);
           }
         } else {
-          // Show error message for ErrorCode1
           errorElement.innerHTML = `<b>ERROR 1:</b><br>print/Hello World/`;
-
-          // Show first lock after error is acknowledged
           for (let el of firstLockElements) {
             el.style.display = "block";
           }
@@ -173,7 +173,6 @@
 
       typeLine();
 
-      // Lock checking
       for (let i = 1; i <= 4; i++) {
         const submitBtn = document.getElementById(`submit${i}`);
         if (submitBtn) {
@@ -188,18 +187,19 @@
 
         if (input === correct) {
           alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+
+          // Show the gold fragment
+          document.getElementById("frag" + index).textContent = passwordChunks[index - 1];
+
           if (index < 4) {
-            // Show error 2 after error 1 is fixed
             if (index === 1) {
               errorElement.innerHTML = `<b>ERROR 2:</b><br>if Kayla equal to Good'`;
             }
-            // Show error 3 after error 2 is fixed
             if (index === 2) {
-              errorElement.innerHTML = `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`;
+              errorElement.innerHTML = `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter']`;
             }
-            // Show error 4 after error 3 is fixed
             if (index === 3) {
-              errorElement.innerHTML = `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print('Good job Peter')<br>or else:`;
+              errorElement.innerHTML = `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print("Good job Peter")<br>or else:`;
             }
             for (let el of document.getElementsByClassName(nextClass)) {
               el.style.display = "block";
@@ -215,3 +215,4 @@
   </script>
 </body>
 </html>
+
