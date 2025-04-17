@@ -4,11 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lock 2 Debugging Challenge</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-
   <style>
-    /* General layout */
     body {
       font-family: 'Pixelify Sans', sans-serif;
       background-color: #0b0c10;
@@ -18,7 +15,6 @@
       font-size: 18px;
     }
 
-    /* Header with cyber glow */
     h3 {
       font-family: 'Pixelify Sans', sans-serif;
       font-size: 3em;
@@ -27,21 +23,18 @@
       margin-bottom: 20px;
     }
 
-    /* Error text */
     #error {
       font-size: 24px;
       color: #ff3333;
       margin-top: 20px;
     }
 
-    /* Typing intro */
     #start {
       font-size: 20px;
       line-height: 1.6;
       margin-top: 20px;
     }
 
-    /* Input fields */
     input[type="text"] {
       width: 300px;
       padding: 10px;
@@ -71,37 +64,22 @@
       background-color: #00cc77;
     }
 
-    /* Hint button */
-    .hint-btn {
-      background-color: #007bff;
-      color: white;
-      margin-top: 10px;
-    }
-
-    /* Positioning for hint and correct answer */
-    .hint, .correct-answer {
-      font-size: 14px;
-      color: #007bff;
-      margin-top: 5px;
-    }
-
-    .correct-answer {
-      color: gold;
-      font-size: 18px;
-      margin-left: 20px;
-    }
-
     .pass, .pass2, .pass3, .pass4 {
       display: none;
       margin-top: 20px;
+    }
+
+    .response {
+      margin-left: 20px;
+      color: #FFD700;
+      display: inline-block;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <h3>SECOND LOCK</h3>
   <div id="start"></div>
-
-  <!-- Error display -->
   <div id="error"></div>
 
   <!-- Lock 1 -->
@@ -109,9 +87,7 @@
     <label>Enter Code Line 1:</label>
     <input type="text" id="code1" />
     <button id="submit1">Submit</button>
-    <button class="hint-btn" id="hint1">Hint</button>
-    <div class="hint" id="hintText1"></div>
-    <div class="correct-answer" id="correctAnswer1"></div>
+    <span class="response" id="response1"></span>
   </div>
 
   <!-- Lock 2 -->
@@ -119,9 +95,7 @@
     <label>Enter Code Line 2:</label>
     <input type="text" id="code2" />
     <button id="submit2">Submit</button>
-    <button class="hint-btn" id="hint2">Hint</button>
-    <div class="hint" id="hintText2"></div>
-    <div class="correct-answer" id="correctAnswer2"></div>
+    <span class="response" id="response2"></span>
   </div>
 
   <!-- Lock 3 -->
@@ -129,9 +103,7 @@
     <label>Enter Code Line 3:</label>
     <input type="text" id="code3" />
     <button id="submit3">Submit</button>
-    <button class="hint-btn" id="hint3">Hint</button>
-    <div class="hint" id="hintText3"></div>
-    <div class="correct-answer" id="correctAnswer3"></div>
+    <span class="response" id="response3"></span>
   </div>
 
   <!-- Lock 4 -->
@@ -139,32 +111,29 @@
     <label>Enter Code Line 4:</label>
     <input type="text" id="code4" />
     <button id="submit4">Submit</button>
-    <button class="hint-btn" id="hint4">Hint</button>
-    <div class="hint" id="hintText4"></div>
-    <div class="correct-answer" id="correctAnswer4"></div>
+    <span class="response" id="response4"></span>
   </div>
 
   <script>
-    let locks = [
-      'print("Hello World")', // Error 1
-      "if 'Kayla' == 'Good':", // Error 2
-      "good_students == ['Kayla', 'Lily', 'Peter']", // Error 3
-      "else:" // Error 4
+    const locks = [
+      'print("Hello World")',
+      "if 'Kayla' == 'Good':",
+      "good_students == ['Kayla', 'Lily', 'Peter']",
+      "else:"
     ];
 
-    let passwordChunks = ["26", "07", "59", "69"];
-    let hints = [
-      "Hello World needs to be inside something?",
-      "Shouldn't there be more singular parenthesis? Equal to...to equal...maybe two equal signs",
-      "There is something wrong with those brackets..",
-      "Or else sounds like a threat"
+    const passwordChunks = ["26", "07", "59", "69"];
+    const responses = [
+      "Correct! First code fragment: 26",
+      "Correct! Second code fragment: 07",
+      "Correct! Third code fragment: 59",
+      "Correct! Final code fragment: 69"
     ];
 
     document.addEventListener("DOMContentLoaded", () => {
       const textElement = document.getElementById("start");
-      const firstLockElements = document.getElementsByClassName("pass");
       const errorElement = document.getElementById("error");
-      const lines = [
+      const introLines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
         "",
@@ -176,18 +145,17 @@
         "To enter the maze, debug the ancient lines. Only truth grants passage."
       ];
 
-      let lineIndex = 0;
-      let charIndex = 0;
+      let lineIndex = 0, charIndex = 0;
 
-      // Hide other lock inputs initially
+      // Hide later locks initially
       for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
         el.style.display = "none";
       }
 
-      // Typewriter effect
+      // Typewriter intro
       function typeLine() {
-        if (lineIndex < lines.length) {
-          const currentLine = lines[lineIndex];
+        if (lineIndex < introLines.length) {
+          const currentLine = introLines[lineIndex];
           if (charIndex < currentLine.length) {
             textElement.innerHTML += currentLine[charIndex];
             charIndex++;
@@ -199,52 +167,35 @@
             setTimeout(typeLine, 300);
           }
         } else {
-          // Show error message for ErrorCode1
           errorElement.innerHTML = `<b>ERROR 1:</b><br>print/Hello World/`;
-
-          // Show first lock after error is acknowledged
-          for (let el of firstLockElements) {
-            el.style.display = "block";
-          }
+          document.querySelector('.pass').style.display = "block";
         }
       }
 
       typeLine();
 
-      // Lock checking
       for (let i = 1; i <= 4; i++) {
-        const submitBtn = document.getElementById(`submit${i}`);
-        const hintBtn = document.getElementById(`hint${i}`);
-        const correctAnswerDiv = document.getElementById(`correctAnswer${i}`);
-        const hintTextDiv = document.getElementById(`hintText${i}`);
-
-        if (submitBtn) {
-          submitBtn.addEventListener("click", () => handleLock(i, correctAnswerDiv));
-        }
-
-        // Hint button functionality
-        if (hintBtn) {
-          hintBtn.addEventListener("click", () => {
-            hintTextDiv.innerText = hints[i - 1];
-          });
-        }
+        document.getElementById(`submit${i}`).addEventListener("click", () => handleLock(i));
       }
 
-      function handleLock(index, correctAnswerDiv) {
+      function handleLock(index) {
         const input = document.getElementById("code" + index).value.trim();
         const correct = locks[index - 1];
         const nextClass = "pass" + (index + 1);
+        const responseBox = document.getElementById(`response${index}`);
 
         if (input === correct) {
-          correctAnswerDiv.innerText = `Correct! First code fragment: ${passwordChunks[index - 1]}`;
-          correctAnswerDiv.style.color = "gold";
-
+          responseBox.textContent = responses[index - 1];
           if (index < 4) {
-            for (let el of document.getElementsByClassName(nextClass)) {
-              el.style.display = "block";
-            }
+            const nextError = [
+              `<b>ERROR 2:</b><br>if Kayla equal to Good'`,
+              `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`,
+              `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print("Good job Peter")<br>or else:`
+            ];
+            errorElement.innerHTML = nextError[index - 1];
+            document.querySelector(`.pass${index + 1}`).style.display = "block";
           } else {
-            alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
+            errorElement.innerHTML = "✅ All locks solved! Final code: " + passwordChunks.join("");
           }
         } else {
           alert("❌ Incorrect. Try again.");
@@ -254,4 +205,5 @@
   </script>
 </body>
 </html>
+
 
