@@ -1,8 +1,8 @@
-/* Body and general layout */
+/* General body and layout */
 body {
     font-family: 'Pixelify Sans', sans-serif;
     background-color: #1e1e1e;
-    color: #00ff00; /* Green color for text */
+    color: #f0f0f0;
     padding: 20px;
     margin: 0;
     font-size: 16px;
@@ -13,12 +13,11 @@ body {
     width: 0;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid #00ff00; /* Green color */
+    border-right: 3px solid #00FF00; /* Cyber glow effect */
     animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
     margin-bottom: 20px;
-    font-size: 2.5em;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; /* Cyber glow effect */
+    font-family: 'Pixelify Sans', sans-serif;
+    color: #00FF00; /* Green color */
 }
 
 /* Keyframes for typing animation */
@@ -40,7 +39,6 @@ label {
     margin-top: 10px;
     font-size: 18px;
     font-weight: bold;
-    color: #00ff00;
 }
 
 input[type="text"] {
@@ -54,6 +52,7 @@ input[type="text"] {
     color: #fff;
 }
 
+/* Buttons styling */
 button {
     padding: 10px 15px;
     margin-top: 10px;
@@ -69,18 +68,17 @@ button:hover {
     background-color: #218838;
 }
 
-/* Hide all lock inputs initially except .pass (Lock 1) */
+/* Hide all lock inputs except the first one */
 .pass2, .pass3, .pass4 {
     display: none;
 }
 
-/* Typing animation for the paragraph text */
+/* Paragraph text for intro */
 #start {
     margin-top: 20px;
-    font-family: 'Gamja Flower', sans-serif;
+    font-family: 'Pixelify Sans', sans-serif;
     font-size: 20px;
     line-height: 1.5;
-    color: #00ff00;
 }
 
 /* Styling for alerts and error messages */
@@ -100,4 +98,18 @@ button:hover {
 .alert.incorrect {
     background-color: #e74c3c;
     color: #fff;
+}
+
+/* General styles for the page */
+h3 {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 2.5em;
+    color: #00FF00;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.2em;
+    line-height: 1.6;
 }
