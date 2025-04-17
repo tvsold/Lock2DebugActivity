@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Second Lock</title>
+  <title>Lock 2 Debugging Challenge</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
 
@@ -25,6 +25,13 @@
       color: #00ff99;
       text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 15px #00ff99;
       margin-bottom: 20px;
+    }
+
+    /* Error text */
+    #error {
+      font-size: 24px;
+      color: #ff3333;
+      margin-top: 20px;
     }
 
     /* Typing intro */
@@ -74,6 +81,9 @@
   <h3>SECOND LOCK</h3>
   <div id="start"></div>
 
+  <!-- Error display -->
+  <div id="error"></div>
+
   <!-- Lock 1 -->
   <div class="pass">
     <label>Enter Code Line 1:</label>
@@ -104,10 +114,10 @@
 
   <script>
     let locks = [
-      'print("Hello World")',
-      "if Kayla == 'Good':",
-      "}",
-      "else:"
+      'print("Hello World")', // Error 1
+      "if Kayla == 'Good':", // Error 2
+      "good_students == ('Kayla', 'Lily', 'Peter')", // Error 3
+      "if 'Peter' == 'Good':\n    print('Good job Peter')\nelse:" // Error 4
     ];
 
     let passwordChunks = ["26", "07", "59", "69"];
@@ -115,6 +125,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const textElement = document.getElementById("start");
       const firstLockElements = document.getElementsByClassName("pass");
+      const errorElement = document.getElementById("error");
       const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
@@ -124,8 +135,7 @@
         "",
         "MESSAGE FROM THE ARCHIVE:",
         "-------------------------",
-        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”",
-        "To enter the maze, debug the ancient lines—only truth grants passage."
+        "To enter the maze, debug the ancient lines. Only truth grants passage."
       ];
 
       let lineIndex = 0;
@@ -151,7 +161,10 @@
             setTimeout(typeLine, 300);
           }
         } else {
-          // Show first lock after intro
+          // Show error message for ErrorCode1
+          errorElement.innerHTML = `<b>ERROR 1:</b><br>print/Hello World/`;
+
+          // Show first lock after error is acknowledged
           for (let el of firstLockElements) {
             el.style.display = "block";
           }
@@ -176,6 +189,18 @@
         if (input === correct) {
           alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
           if (index < 4) {
+            // Show error 2 after error 1 is fixed
+            if (index === 1) {
+              errorElement.innerHTML = `<b>ERROR 2:</b><br>if Kayla equal to Good'`;
+            }
+            // Show error 3 after error 2 is fixed
+            if (index === 2) {
+              errorElement.innerHTML = `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`;
+            }
+            // Show error 4 after error 3 is fixed
+            if (index === 3) {
+              errorElement.innerHTML = `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print('Good job Peter')<br>or else:`;
+            }
             for (let el of document.getElementsByClassName(nextClass)) {
               el.style.display = "block";
             }
