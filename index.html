@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lock 2 Debugging Challenge</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+
   <style>
+    /* General layout */
     body {
       font-family: 'Pixelify Sans', sans-serif;
       background-color: #0b0c10;
@@ -15,6 +18,7 @@
       font-size: 18px;
     }
 
+    /* Header with cyber glow */
     h3 {
       font-family: 'Pixelify Sans', sans-serif;
       font-size: 3em;
@@ -23,18 +27,21 @@
       margin-bottom: 20px;
     }
 
+    /* Error text */
     #error {
       font-size: 24px;
       color: #ff3333;
       margin-top: 20px;
     }
 
+    /* Typing intro */
     #start {
       font-size: 20px;
       line-height: 1.6;
       margin-top: 20px;
     }
 
+    /* Input fields */
     input[type="text"] {
       width: 300px;
       padding: 10px;
@@ -64,22 +71,42 @@
       background-color: #00cc77;
     }
 
+    /* Blue hint button */
+    .hint-btn {
+      background-color: #0073e6;
+      color: white;
+      font-size: 16px;
+      font-family: 'Pixelify Sans', sans-serif;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .hint-btn:hover {
+      background-color: #005bb5;
+    }
+
     .pass, .pass2, .pass3, .pass4 {
       display: none;
       margin-top: 20px;
     }
 
-    .response {
-      margin-left: 20px;
-      color: #FFD700;
-      display: inline-block;
+    /* Hint display area */
+    .hint {
       font-size: 16px;
+      color: #ffcc00;
+      display: inline-block;
+      margin-left: 10px;
     }
   </style>
 </head>
 <body>
   <h3>SECOND LOCK</h3>
   <div id="start"></div>
+
+  <!-- Error display -->
   <div id="error"></div>
 
   <!-- Lock 1 -->
@@ -87,7 +114,8 @@
     <label>Enter Code Line 1:</label>
     <input type="text" id="code1" />
     <button id="submit1">Submit</button>
-    <span class="response" id="response1"></span>
+    <button class="hint-btn" id="hint1">Hint</button>
+    <span id="hint1Text" class="hint"></span>
   </div>
 
   <!-- Lock 2 -->
@@ -95,7 +123,8 @@
     <label>Enter Code Line 2:</label>
     <input type="text" id="code2" />
     <button id="submit2">Submit</button>
-    <span class="response" id="response2"></span>
+    <button class="hint-btn" id="hint2">Hint</button>
+    <span id="hint2Text" class="hint"></span>
   </div>
 
   <!-- Lock 3 -->
@@ -103,7 +132,8 @@
     <label>Enter Code Line 3:</label>
     <input type="text" id="code3" />
     <button id="submit3">Submit</button>
-    <span class="response" id="response3"></span>
+    <button class="hint-btn" id="hint3">Hint</button>
+    <span id="hint3Text" class="hint"></span>
   </div>
 
   <!-- Lock 4 -->
@@ -111,29 +141,25 @@
     <label>Enter Code Line 4:</label>
     <input type="text" id="code4" />
     <button id="submit4">Submit</button>
-    <span class="response" id="response4"></span>
+    <button class="hint-btn" id="hint4">Hint</button>
+    <span id="hint4Text" class="hint"></span>
   </div>
 
   <script>
-    const locks = [
-      'print("Hello World")',
-      "if 'Kayla' == 'Good':",
-      "good_students == ['Kayla', 'Lily', 'Peter']",
-      "else:"
+    let locks = [
+      'print("Hello World")', // Error 1
+      "if 'Kayla' == 'Good':", // Error 2
+      "good_students == ['Kayla', 'Lily', 'Peter']", // Error 3
+      "else:" // Error 4
     ];
 
-    const passwordChunks = ["26", "07", "59", "69"];
-    const responses = [
-      "Correct! First code fragment: 26",
-      "Correct! Second code fragment: 07",
-      "Correct! Third code fragment: 59",
-      "Correct! Final code fragment: 69"
-    ];
+    let passwordChunks = ["26", "07", "59", "69"];
 
     document.addEventListener("DOMContentLoaded", () => {
       const textElement = document.getElementById("start");
+      const firstLockElements = document.getElementsByClassName("pass");
       const errorElement = document.getElementById("error");
-      const introLines = [
+      const lines = [
         "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
         "",
@@ -145,17 +171,18 @@
         "To enter the maze, debug the ancient lines. Only truth grants passage."
       ];
 
-      let lineIndex = 0, charIndex = 0;
+      let lineIndex = 0;
+      let charIndex = 0;
 
-      // Hide later locks initially
+      // Hide other lock inputs initially
       for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
         el.style.display = "none";
       }
 
-      // Typewriter intro
+      // Typewriter effect
       function typeLine() {
-        if (lineIndex < introLines.length) {
-          const currentLine = introLines[lineIndex];
+        if (lineIndex < lines.length) {
+          const currentLine = lines[lineIndex];
           if (charIndex < currentLine.length) {
             textElement.innerHTML += currentLine[charIndex];
             charIndex++;
@@ -167,40 +194,75 @@
             setTimeout(typeLine, 300);
           }
         } else {
+          // Show error message for ErrorCode1
           errorElement.innerHTML = `<b>ERROR 1:</b><br>print/Hello World/`;
-          document.querySelector('.pass').style.display = "block";
+
+          // Show first lock after error is acknowledged
+          for (let el of firstLockElements) {
+            el.style.display = "block";
+          }
         }
       }
 
       typeLine();
 
+      // Lock checking
       for (let i = 1; i <= 4; i++) {
-        document.getElementById(`submit${i}`).addEventListener("click", () => handleLock(i));
+        const submitBtn = document.getElementById(`submit${i}`);
+        if (submitBtn) {
+          submitBtn.addEventListener("click", () => handleLock(i));
+        }
       }
 
       function handleLock(index) {
         const input = document.getElementById("code" + index).value.trim();
         const correct = locks[index - 1];
         const nextClass = "pass" + (index + 1);
-        const responseBox = document.getElementById(`response${index}`);
 
         if (input === correct) {
-          responseBox.textContent = responses[index - 1];
+          alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+          document.getElementById(`hint${index}Text`).textContent = `Correct! First code fragment: ${passwordChunks[index - 1]}`;
+          
           if (index < 4) {
-            const nextError = [
-              `<b>ERROR 2:</b><br>if Kayla equal to Good'`,
-              `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`,
-              `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print("Good job Peter")<br>or else:`
-            ];
-            errorElement.innerHTML = nextError[index - 1];
-            document.querySelector(`.pass${index + 1}`).style.display = "block";
+            // Show error 2 after error 1 is fixed
+            if (index === 1) {
+              errorElement.innerHTML = `<b>ERROR 2:</b><br>if Kayla equal to Good'`;
+            }
+            // Show error 3 after error 2 is fixed
+            if (index === 2) {
+              errorElement.innerHTML = `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`;
+            }
+            // Show error 4 after error 3 is fixed
+            if (index === 3) {
+              errorElement.innerHTML = `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print('Good job Peter')<br>or else:`;
+            }
+            for (let el of document.getElementsByClassName(nextClass)) {
+              el.style.display = "block";
+            }
           } else {
-            errorElement.innerHTML = "✅ All locks solved! Final code: " + passwordChunks.join("");
+            alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
           }
         } else {
           alert("❌ Incorrect. Try again.");
         }
       }
+
+      // Hint functionality
+      document.getElementById("hint1").addEventListener("click", () => {
+        document.getElementById("hint1Text").textContent = "Hello World needs to be inside something?";
+      });
+
+      document.getElementById("hint2").addEventListener("click", () => {
+        document.getElementById("hint2Text").textContent = "Equal to...to equal...maybe two equal signs?";
+      });
+
+      document.getElementById("hint3").addEventListener("click", () => {
+        document.getElementById("hint3Text").textContent = "There is something wrong with those brackets..";
+      });
+
+      document.getElementById("hint4").addEventListener("click", () => {
+        document.getElementById("hint4Text").textContent = "Or else sounds like a threat";
+      });
     });
   </script>
 </body>
