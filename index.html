@@ -1,24 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Lock 2 Challenge</title>
+    <meta charset="UTF-8">
+    <title>Lock 2 Debug Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #00ff99;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 30px;
+            font-size: 16px;
+        }
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: #00ffcc;
+        }
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+        #start {
+            font-family: 'Major Mono Display', monospace;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
 
-    <!-- JS -->
-    <script src="script.js" defer></script>
+        .lock-input {
+            display: none;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            background-color: #1e1e1e;
+            border: 2px solid #00ff99;
+            color: #00ff99;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #00ff99;
+            color: #0f0f0f;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        button:hover {
+            background-color: #00cc7a;
+        }
+    </style>
 </head>
 <body>
-    <h3 class="typing-header">Lock 2 Debugging Challenge</h3>
-    <p id="start"></p>
 
-    <div id="lock-section" style="display: none;">
-        <!-- Lock 1 -->
-        <label for="code1" class="pass">Enter the corrected line of code:</label>
-        <input type="text" id="code1" class
+    <h1>LOCK 2: DEBUG THE CODE</h1>
+    <div id="start"></div>
+
+    <div id="lock-section" class="lock-input">
+        <label for="code1">Enter correct line of code:</label>
+        <input type="text" id="code1" />
+        <button id="submit1">Submit</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const correctCode = 'print("Hello World")';
+            const passwordChunk = "26";
+            const start = document.getElementById("start");
+            const lockSection = document.getElementById("lock-section");
+
+            const lines = [
+                "Welcome to the Second Lock.",
+                "You will need to examine the ancient code presented.",
+                "",
+                "Accessing encrypted data logs…",
+                "Data retrieval successful.",
+                "",
+                "MESSAGE FROM THE ARCHIVE:",
+                "-------------------------",
+                "“Those who seek the truth must be prepared to unlock it.",
+                "The codes are hidden within the labyrinth of information,",
+                "where logic and knowledge will light your path.”"
+            ];
+
+            let lineIndex = 0;
+            let charIndex = 0;
+
+            function typeLine() {
+                if (lineIndex < lines.length) {
+                    const currentLine = lines[lineIndex];
+                    if (charIndex < currentLine.length) {
+                        start.innerHTML += currentLine.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeLine, 30);
+                    } else {
+                        start.innerHTML += "<br>";
+                        charIndex = 0;
+                        lineIndex++;
+                        setTimeout(typeLine, 300);
+                    }
+                } else {
+                    lockSection.style.display = "block";
+                }
+            }
+
+            typeLine();
+
+            document.getElementById("submit1").addEventListener("click", () => {
+                const input = document.getElementById("code1").value.trim();
+                if (input === correctCode) {
+                    alert("✅ Correct! Code fragment: " + passwordChunk);
+                } else {
+                    alert("❌ Incorrect. Try again.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
