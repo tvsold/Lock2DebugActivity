@@ -1,24 +1,24 @@
-/* Body and general layout */
 body {
-    font-family: 'Fira Code', monospace;
-    background-color: #1e1e1e;
-    color: #f0f0f0;
+    font-family: 'Source Code Pro', monospace;
+    background-color: #0d0d0d;
+    color: #00ff00;
     padding: 20px;
     margin: 0;
     font-size: 16px;
 }
 
-/* Typing effect for the header */
 .typing-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    color: #00ff00;
     width: 0;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid black;
+    border-right: 3px solid #00ff00;
     animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
     margin-bottom: 20px;
 }
 
-/* Keyframes for typing animation */
 @keyframes typing {
     to {
         width: 100%;
@@ -31,32 +31,29 @@ body {
     }
 }
 
-/* Style for the lock inputs and buttons */
 label {
     display: block;
     margin-top: 10px;
-    font-size: 16px; /* Reduced font size */
-    font-weight: bold;
-    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 input[type="text"] {
     width: 300px;
     padding: 10px;
     margin-top: 5px;
-    font-size: 14px; /* Reduced font size */
-    border: 1px solid #ccc;
+    font-size: 16px;
+    border: 1px solid #0f0;
     border-radius: 4px;
-    background-color: #333;
-    color: #fff;
+    background-color: #111;
+    color: #0f0;
 }
 
-/* Button styling */
 button {
     padding: 10px 15px;
     margin-top: 10px;
     font-size: 16px;
-    background-color: #28a745;
+    background-color: #00aa00;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -64,53 +61,15 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #007700;
 }
 
-/* Hide all lock inputs initially except .pass (Lock 1) */
 .pass2, .pass3, .pass4 {
     display: none;
 }
 
-/* Typing animation for the paragraph text */
 #start {
     margin-top: 20px;
-    font-family: 'Gamja Flower', sans-serif;
-    font-size: 18px; /* Slightly reduced font size */
-    line-height: 1.5;
-    color: #f0f0f0;
-}
-
-/* Styling for alerts and error messages */
-.alert {
-    background-color: #ffdd57;
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.alert.correct {
-    background-color: #28a745;
-    color: #fff;
-}
-
-.alert.incorrect {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
-/* General styles for the page */
-h3 {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 2.5em;
-    color: #ff7f50;
-    margin-bottom: 20px;
-}
-
-p {
-    font-family: 'Mali', sans-serif;
-    font-size: 1.2em;
+    font-size: 18px;
     line-height: 1.6;
-    color: #f0f0f0;
 }
