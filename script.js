@@ -1,17 +1,17 @@
+let locks = [
+    'print("Hello World")',
+    "if Kayla == 'Good':",
+    "}",
+    "else:"
+];
+
+let passwordChunks = ["26", "07", "59", "69"];
+
 document.addEventListener("DOMContentLoaded", () => {
-    const locks = [
-        'print("Hello World")',
-        "if Kayla == 'Good':",
-        "}",
-        "else:"
-    ];
-
-    const passwordChunks = ["26", "07", "59", "69"];
     const textElement = document.getElementById("start");
-    const lockSection = document.getElementById("lock-section");
-
+    const firstLockElements = document.getElementsByClassName("pass");
     const lines = [
-        "Welcome to the Second Lock.",
+        "Welcome to the Second Lock",
         "You will need to examine the ancient code presented.",
         "",
         "Accessing encrypted data logs…",
@@ -19,57 +19,69 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "MESSAGE FROM THE ARCHIVE:",
         "-------------------------",
-        "“Those who seek the truth must be prepared to unlock it.",
-        "The codes are hidden within the labyrinth of information,",
-        "where logic and knowledge will light your path.”"
+        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”"
     ];
 
     let lineIndex = 0;
     let charIndex = 0;
 
+    // Hide all lock inputs except the first one
+    for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
+        el.style.display = "none";
+    }
+
+    // Typewriter effect for the intro text
     function typeLine() {
         if (lineIndex < lines.length) {
             const currentLine = lines[lineIndex];
             if (charIndex < currentLine.length) {
-                textElement.innerHTML += currentLine.charAt(charIndex);
+                textElement.innerHTML += currentLine[charIndex];
                 charIndex++;
-                setTimeout(typeLine, 30);
+                setTimeout(typeLine, 50);
             } else {
                 textElement.innerHTML += "<br>";
                 charIndex = 0;
                 lineIndex++;
-                setTimeout(typeLine, 300);
+                setTimeout(typeLine, 500);
             }
         } else {
-            lockSection.style.display = "block";
+            // Show first lock input after intro finishes
+            for (let el of firstLockElements) {
+                el.style.display = "inline-block";
+            }
         }
     }
 
     typeLine();
 
+    // Add submit event listeners for each lock
     for (let i = 1; i <= 4; i++) {
         const submitBtn = document.getElementById(`submit${i}`);
         if (submitBtn) {
-            submitBtn.addEventListener("click", () => {
-                const inputEl = document.getElementById(`code${i}`);
-                const userInput = inputEl.value.trim();
-                const correctAnswer = locks[i - 1];
-                const nextClass = "pass" + (i + 1);
+            submitBtn.addEventListener("click", () => handleLock(i));
+        }
+    }
 
-                if (userInput === correctAnswer) {
-                    alert(`✅ Correct! Unlock code fragment: ${passwordChunks[i - 1]}`);
-                    if (i < 4) {
-                        const nextEls = document.getElementsByClassName(nextClass);
-                        for (let el of nextEls) {
-                            el.style.display = "inline-block";
-                        }
-                    } else {
-                        alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
-                    }
-                } else {
-                    alert("❌ Incorrect. Try again.");
+    function handleLock(index) {
+        const inputEl = document.getElementById("code" + index);
+        if (!inputEl) return;
+
+        const userInput = inputEl.value.trim();
+        const correctAnswer = locks[index - 1];
+        const nextClass = "pass" + (index + 1);
+
+        if (userInput === correctAnswer) {
+            alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+            if (index < 4) {
+                for (let el of document.getElementsByClassName(nextClass)) {
+                    el.style.display = "inline-block";
                 }
-            });
+            } else {
+                alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
+            }
+        } else {
+            alert("❌ Incorrect. Try again.");
         }
     }
 });
+
