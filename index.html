@@ -71,35 +71,43 @@
       background-color: #00cc77;
     }
 
-    /* Blue hint button */
-    .hint-btn {
-      background-color: #0073e6;
-      color: white;
-      font-size: 16px;
-      font-family: 'Pixelify Sans', sans-serif;
-      border: none;
-      border-radius: 4px;
-      padding: 10px 15px;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-
-    .hint-btn:hover {
-      background-color: #005bb5;
-    }
-
     .pass, .pass2, .pass3, .pass4 {
       display: none;
       margin-top: 20px;
     }
 
-    /* Hint display area */
+    /* Hint button */
+    .hint-button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #3399ff;
+      color: #0b0c10;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Pixelify Sans', sans-serif;
+    }
+
+    .hint-button:hover {
+      background-color: #3388cc;
+    }
+
+    /* Hint text */
     .hint {
       font-size: 16px;
-      color: #ffcc00;
-      display: inline-block;
-      margin-left: 10px;
+      color: #3399ff;
+      margin-top: 10px;
     }
+
+    /* Correct fragment text */
+    .correct-fragment {
+      font-size: 16px;
+      color: gold;
+      margin-top: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -114,8 +122,8 @@
     <label>Enter Code Line 1:</label>
     <input type="text" id="code1" />
     <button id="submit1">Submit</button>
-    <button class="hint-btn" id="hint1">Hint</button>
-    <span id="hint1Text" class="hint"></span>
+    <button class="hint-button" id="hint1">Hint</button>
+    <div class="hint" id="hintText1"></div>
   </div>
 
   <!-- Lock 2 -->
@@ -123,8 +131,8 @@
     <label>Enter Code Line 2:</label>
     <input type="text" id="code2" />
     <button id="submit2">Submit</button>
-    <button class="hint-btn" id="hint2">Hint</button>
-    <span id="hint2Text" class="hint"></span>
+    <button class="hint-button" id="hint2">Hint</button>
+    <div class="hint" id="hintText2"></div>
   </div>
 
   <!-- Lock 3 -->
@@ -132,8 +140,8 @@
     <label>Enter Code Line 3:</label>
     <input type="text" id="code3" />
     <button id="submit3">Submit</button>
-    <button class="hint-btn" id="hint3">Hint</button>
-    <span id="hint3Text" class="hint"></span>
+    <button class="hint-button" id="hint3">Hint</button>
+    <div class="hint" id="hintText3"></div>
   </div>
 
   <!-- Lock 4 -->
@@ -141,8 +149,8 @@
     <label>Enter Code Line 4:</label>
     <input type="text" id="code4" />
     <button id="submit4">Submit</button>
-    <button class="hint-btn" id="hint4">Hint</button>
-    <span id="hint4Text" class="hint"></span>
+    <button class="hint-button" id="hint4">Hint</button>
+    <div class="hint" id="hintText4"></div>
   </div>
 
   <script>
@@ -214,28 +222,38 @@
         }
       }
 
+      // Hints for each lock
+      document.getElementById("hint1").addEventListener("click", () => {
+        document.getElementById("hintText1").textContent = "Hint: Hello World needs to be inside something?";
+      });
+
+      document.getElementById("hint2").addEventListener("click", () => {
+        document.getElementById("hintText2").textContent = "Hint: Shouldn't there be more singular parenthesis? Equal to... to equal... maybe two equal signs?";
+      });
+
+      document.getElementById("hint3").addEventListener("click", () => {
+        document.getElementById("hintText3").textContent = "Hint: There is something wrong with those brackets..";
+      });
+
+      document.getElementById("hint4").addEventListener("click", () => {
+        document.getElementById("hintText4").textContent = "Hint: Or else sounds like a threat";
+      });
+
       function handleLock(index) {
         const input = document.getElementById("code" + index).value.trim();
         const correct = locks[index - 1];
         const nextClass = "pass" + (index + 1);
 
         if (input === correct) {
-          alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
-          document.getElementById(`hint${index}Text`).textContent = `Correct! First code fragment: ${passwordChunks[index - 1]}`;
-          
+          const correctFragment = passwordChunks[index - 1];
+
+          // Show the correct code fragment on the right
+          const correctMessage = document.createElement("div");
+          correctMessage.classList.add("correct-fragment");
+          correctMessage.textContent = `Correct! First code fragment: ${correctFragment}`;
+          document.getElementById(`submit${index}`).insertAdjacentElement("afterend", correctMessage);
+
           if (index < 4) {
-            // Show error 2 after error 1 is fixed
-            if (index === 1) {
-              errorElement.innerHTML = `<b>ERROR 2:</b><br>if Kayla equal to Good'`;
-            }
-            // Show error 3 after error 2 is fixed
-            if (index === 2) {
-              errorElement.innerHTML = `<b>ERROR 3:</b><br>good_students == ('Kayla', 'Lily', 'Peter')`;
-            }
-            // Show error 4 after error 3 is fixed
-            if (index === 3) {
-              errorElement.innerHTML = `<b>ERROR 4:</b><br>if 'Peter' == 'Good':<br>    print('Good job Peter')<br>or else:`;
-            }
             for (let el of document.getElementsByClassName(nextClass)) {
               el.style.display = "block";
             }
@@ -246,24 +264,8 @@
           alert("❌ Incorrect. Try again.");
         }
       }
-
-      // Hint functionality
-      document.getElementById("hint1").addEventListener("click", () => {
-        document.getElementById("hint1Text").textContent = "Hello World needs to be inside something?";
-      });
-
-      document.getElementById("hint2").addEventListener("click", () => {
-        document.getElementById("hint2Text").textContent = "Equal to...to equal...maybe two equal signs?";
-      });
-
-      document.getElementById("hint3").addEventListener("click", () => {
-        document.getElementById("hint3Text").textContent = "There is something wrong with those brackets..";
-      });
-
-      document.getElementById("hint4").addEventListener("click", () => {
-        document.getElementById("hint4Text").textContent = "Or else sounds like a threat";
-      });
     });
   </script>
 </body>
 </html>
+
