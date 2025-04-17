@@ -1,47 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlock the Maze</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Second Lock</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    /* General layout */
+    body {
+      font-family: 'Pixelify Sans', sans-serif;
+      background-color: #0b0c10;
+      color: #00ff99;
+      padding: 20px;
+      margin: 0;
+      font-size: 18px;
+    }
+
+    /* Header with cyber glow */
+    h3 {
+      font-family: 'Pixelify Sans', sans-serif;
+      font-size: 3em;
+      color: #00ff99;
+      text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 15px #00ff99;
+      margin-bottom: 20px;
+    }
+
+    /* Typing intro */
+    #start {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    /* Input fields */
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: 1px solid #00ff99;
+      border-radius: 4px;
+      background-color: #1f1f1f;
+      color: #00ff99;
+      font-family: 'Pixelify Sans', sans-serif;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #00ff99;
+      color: #0b0c10;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Pixelify Sans', sans-serif;
+    }
+
+    button:hover {
+      background-color: #00cc77;
+    }
+
+    .pass, .pass2, .pass3, .pass4 {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-
 <body>
-    <div id="start"></div>
+  <h3>SECOND LOCK</h3>
+  <div id="start"></div>
 
-    <h3 class="typing-header">Welcome to the Maze!</h3>
+  <!-- Lock 1 -->
+  <div class="pass">
+    <label>Enter Code Line 1:</label>
+    <input type="text" id="code1" />
+    <button id="submit1">Submit</button>
+  </div>
 
-    <p id="start">
-        Explore the mysterious code to unlock secrets.
-    </p>
+  <!-- Lock 2 -->
+  <div class="pass2">
+    <label>Enter Code Line 2:</label>
+    <input type="text" id="code2" />
+    <button id="submit2">Submit</button>
+  </div>
 
-    <div class="lock-container">
-        <div class="lock-input pass">
-            <label for="code1">Enter the first line of code:</label>
-            <input type="text" id="code1" placeholder="Enter code here">
-            <button id="submit1">Submit</button>
-        </div>
-        <div class="lock-input pass2">
-            <label for="code2">Enter the second line of code:</label>
-            <input type="text" id="code2" placeholder="Enter code here">
-            <button id="submit2">Submit</button>
-        </div>
-        <div class="lock-input pass3">
-            <label for="code3">Enter the third line of code:</label>
-            <input type="text" id="code3" placeholder="Enter code here">
-            <button id="submit3">Submit</button>
-        </div>
-        <div class="lock-input pass4">
-            <label for="code4">Enter the fourth line of code:</label>
-            <input type="text" id="code4" placeholder="Enter code here">
-            <button id="submit4">Submit</button>
-        </div>
-    </div>
+  <!-- Lock 3 -->
+  <div class="pass3">
+    <label>Enter Code Line 3:</label>
+    <input type="text" id="code3" />
+    <button id="submit3">Submit</button>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Lock 4 -->
+  <div class="pass4">
+    <label>Enter Code Line 4:</label>
+    <input type="text" id="code4" />
+    <button id="submit4">Submit</button>
+  </div>
+
+  <script>
+    let locks = [
+      'print("Hello World")',
+      "if Kayla == 'Good':",
+      "}",
+      "else:"
+    ];
+
+    let passwordChunks = ["26", "07", "59", "69"];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const textElement = document.getElementById("start");
+      const firstLockElements = document.getElementsByClassName("pass");
+      const lines = [
+        "Welcome to the Second Lock",
+        "You will need to examine the ancient code presented.",
+        "",
+        "Accessing encrypted data logs…",
+        "Data retrieval successful.",
+        "",
+        "MESSAGE FROM THE ARCHIVE:",
+        "-------------------------",
+        "“Those who seek the truth must be prepared to unlock it. The codes are hidden within the labyrinth of information, where logic and knowledge will light your path.”",
+        "To enter the maze, debug the ancient lines—only truth grants passage."
+      ];
+
+      let lineIndex = 0;
+      let charIndex = 0;
+
+      // Hide other lock inputs initially
+      for (let el of document.querySelectorAll('.pass2, .pass3, .pass4')) {
+        el.style.display = "none";
+      }
+
+      // Typewriter effect
+      function typeLine() {
+        if (lineIndex < lines.length) {
+          const currentLine = lines[lineIndex];
+          if (charIndex < currentLine.length) {
+            textElement.innerHTML += currentLine[charIndex];
+            charIndex++;
+            setTimeout(typeLine, 40);
+          } else {
+            textElement.innerHTML += "<br>";
+            charIndex = 0;
+            lineIndex++;
+            setTimeout(typeLine, 300);
+          }
+        } else {
+          // Show first lock after intro
+          for (let el of firstLockElements) {
+            el.style.display = "block";
+          }
+        }
+      }
+
+      typeLine();
+
+      // Lock checking
+      for (let i = 1; i <= 4; i++) {
+        const submitBtn = document.getElementById(`submit${i}`);
+        if (submitBtn) {
+          submitBtn.addEventListener("click", () => handleLock(i));
+        }
+      }
+
+      function handleLock(index) {
+        const input = document.getElementById("code" + index).value.trim();
+        const correct = locks[index - 1];
+        const nextClass = "pass" + (index + 1);
+
+        if (input === correct) {
+          alert(`✅ Correct! Unlock code fragment: ${passwordChunks[index - 1]}`);
+          if (index < 4) {
+            for (let el of document.getElementsByClassName(nextClass)) {
+              el.style.display = "block";
+            }
+          } else {
+            alert(`🎉 All locks solved! Final code: ${passwordChunks.join("")}`);
+          }
+        } else {
+          alert("❌ Incorrect. Try again.");
+        }
+      }
+    });
+  </script>
 </body>
-
 </html>
-
