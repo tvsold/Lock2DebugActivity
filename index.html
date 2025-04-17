@@ -55,6 +55,23 @@
       color: greenyellow;
     }
 
+    input[type="text"] {
+      width: 100%; /* Full width for better alignment */
+      padding: 12px 15px; /* Padding for a comfortable input area */
+      font-size: 18px;
+      background-color: black; /* Black background */
+      color: greenyellow; /* Text color greenyellow */
+      border: 2px solid greenyellow; /* Green border to match the theme */
+      border-radius: 6px; /* Rounded corners */
+      font-family: 'Fira Code', sans-serif; /* Same font as text */
+      outline: none; /* Remove default focus outline */
+      transition: border-color 0.3s ease; /* Smooth transition for border color */
+    }
+
+    input[type="text"]:focus {
+      border-color: #00cc77; /* Darker green on focus */
+    }
+
     .pass, .pass2, .pass3, .pass4 {
       display: none;
     }
